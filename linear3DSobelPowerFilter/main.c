@@ -201,6 +201,236 @@ int main (int argc, const char * argv[])
     } 
     
     
+#ifdef complexArrayTesting
+    /* three dimensional array testing */
+    
+    float testit[4][4][4];
+    float testitI[4][4][4];
+    
+    float z = 0;
+    for (int i = 0; i < 4; i ++) {
+        for (int j = 0; j < 4; j ++) {
+            for (int k = 0; k < 4; k ++) {
+                
+                if (k == 3 || j == 3 || i == 3) {
+                    testit[i][j][k] = 0;
+                    testitI[i][j][k] = 0;
+                }
+                else{
+                    testit[i][j][k] = z;
+                    testitI[i][j][k] = 0;
+                    z++;
+                }
+                
+                
+            }
+        }
+    }
+    
+    printf("Before convolution");
+    for (int i = 0; i < 3; i ++) {
+        for (int j = 0; j < 3; j ++) {
+            for (int k = 0; k < 3; k ++) {
+                printf("%f \n", testit[i][j][k]);
+            }
+        }
+    }
+
+    //row wise fft
+    for (int i = 0; i < 4; i ++) {
+        for (int j = 0; j < 4; j ++) {
+            float * tmpRowR = malloc(sizeof(float)*4);
+            float * tmpRowI = malloc(sizeof(float)*4);
+            
+            //collect a row
+            for (int k = 0; k < 4; k ++) {
+                // throw into a tmp array to do FFT upon
+                tmpRowR[k] = testit[i][j][k];
+                tmpRowI[k] = testitI[i][j][k];
+            }
+            
+            //apply FFT
+            FFT(FFT_FORWARD, 2, tmpRowR, tmpRowI);
+            
+            // store the resulting row into original array
+            for (int k = 0; k < 4; k ++) {
+                // throw into a tmp array to do FFT upon
+                testit[i][j][k] = tmpRowR[k];
+                testitI[i][j][k] = tmpRowI[k];
+            }
+        }
+    }
+    
+    //column wise fft
+    for (int i = 0; i < 4; i ++) {
+        for (int k = 0; k < 4; k ++) {
+            float * tmpColR = malloc(sizeof(float)*4);
+            float * tmpColI = malloc(sizeof(float)*4);
+            
+            for (int j = 0; j < 4; j ++) {
+                // throw into a tmp array to do FFT upon
+                tmpColR[j] = testit[i][j][k];
+                tmpColI[j] = testitI[i][j][k];
+            }
+            
+            //apply FFT
+            FFT(FFT_FORWARD, 2, tmpColR, tmpColI);
+            
+            for (int j = 0; j < 4; j ++) {
+                // throw into a tmp array to do FFT upon
+                testit[i][j][k] = tmpColR[j];
+                testitI[i][j][k] = tmpColI[j];
+            }
+        }
+    }
+    
+    //slice wise fft
+    for (int j = 0; j < 4; j ++) {
+        for (int k = 0; k < 4; k ++) {
+            float * tmpSliR = malloc(sizeof(float)*4);
+            float * tmpSliI = malloc(sizeof(float)*4);
+            
+            //throw present slice into a tmp array to do FFT upon
+            for (int i = 0; i < 4; i ++) {
+                tmpSliR[i] = testit[i][j][k];
+                tmpSliI[i] = testitI[i][j][k];
+            }
+            
+            //apply FFT
+            FFT(FFT_FORWARD, 2, tmpSliR, tmpSliI);
+            
+            //collect present slice into original 4*4*4 array
+            for (int i = 0; i < 4; i ++) {
+                testit[i][j][k] = tmpSliR[i];
+                testitI[i][j][k] = tmpSliI[i];
+            }
+            
+        }
+    }
+    
+    
+    //slice wise inverse fft
+    for (int j = 0; j < 4; j ++) {
+        for (int k = 0; k < 4; k ++) {
+            float * tmpSliR = malloc(sizeof(float)*4);
+            float * tmpSliI = malloc(sizeof(float)*4);
+            
+            //throw present slice into a tmp array to do FFT upon
+            for (int i = 0; i < 4; i ++) {
+                tmpSliR[i] = testit[i][j][k];
+                tmpSliI[i] = testitI[i][j][k];
+            }
+            
+            //apply FFT
+            FFT(FFT_REVERSE, 2, tmpSliR, tmpSliI);
+            
+            //collect present slice into original 4*4*4 array
+            for (int i = 0; i < 4; i ++) {
+                testit[i][j][k] = tmpSliR[i];
+                testitI[i][j][k] = tmpSliI[i];
+            }
+            
+        }
+    }
+    
+    //column wise inverse fft
+    for (int i = 0; i < 4; i ++) {
+        for (int k = 0; k < 4; k ++) {
+            float * tmpColR = malloc(sizeof(float)*4);
+            float * tmpColI = malloc(sizeof(float)*4);
+            
+            for (int j = 0; j < 4; j ++) {
+                // throw into a tmp array to do FFT upon
+                tmpColR[j] = testit[i][j][k];
+                tmpColI[j] = testitI[i][j][k];
+            }
+            
+            //apply FFT
+            FFT(FFT_REVERSE, 2, tmpColR, tmpColI);
+            
+            for (int j = 0; j < 4; j ++) {
+                // throw into a tmp array to do FFT upon
+                testit[i][j][k] = tmpColR[j];
+                testitI[i][j][k] = tmpColI[j];
+            }
+        }
+    }
+
+    
+    printf("After convolution");
+    for (int i = 0; i < 3; i ++) {
+        for (int j = 0; j < 3; j ++) {
+            for (int k = 0; k < 3; k ++) {
+                printf("%f \n", testit[i][j][k]);
+            }
+        }
+    }
+
+    //row wise inv fft
+    for (int i = 0; i < 4; i ++) {
+        for (int j = 0; j < 4; j ++) {
+            float * tmpRowR = malloc(sizeof(float)*4);
+            float * tmpRowI = malloc(sizeof(float)*4);
+            
+            //collect a row
+            for (int k = 0; k < 4; k ++) {
+                // throw into a tmp array to do FFT upon
+                tmpRowR[k] = testit[i][j][k];
+                tmpRowI[k] = testitI[i][j][k];
+            }
+            
+            //apply FFT
+            FFT(FFT_REVERSE, 2, tmpRowR, tmpRowI);
+            
+            // store the resulting row into original array
+            for (int k = 0; k < 4; k ++) {
+                // throw into a tmp array to do FFT upon
+                testit[i][j][k] = tmpRowR[k];
+                testitI[i][j][k] = tmpRowI[k];
+            }
+        }
+    }
+    
+    
+    printf("After inverse convolution");
+    for (int i = 0; i < 3; i ++) {
+        for (int j = 0; j < 3; j ++) {
+            for (int k = 0; k < 3; k ++) {
+                printf("%f \n", testit[i][j][k]);
+            }
+        }
+    }
+    
+    /*
+    printf("row-wise traversal \n");
+    for (int i = 0; i < 3; i ++) {
+        for (int j = 0; j < 3; j ++) {
+            for (int k = 0; k < 3; k ++) {
+                printf("at index [%i][%i][%i] -> %f \n", i, j, k, testit[i][j][k]);
+            }
+        }
+    }
+    
+    printf("column-wise traversal \n");
+    for (int i = 0; i < 3; i ++) {
+        for (int k = 0; k < 3; k ++) {
+            for (int j = 0; j < 3; j ++) {
+                printf("at index [%i][%i][%i] -> %f \n", i, j, k, testit[i][j][k]);
+            }
+        }
+    }
+    
+    printf("slice-wise traversal \n");
+    for (int j = 0; j < 3; j ++) {
+        for (int k = 0; k < 3; k ++) {
+            for (int i = 0; i < 3; i ++) {
+                printf("at index [%i][%i][%i] -> %f \n", i, j, k, testit[i][j][k]);
+            }
+        }
+    }
+    */
+#endif
+    
     /* ----------------------------------------> KERNEL BEGINS HERE! <---------------------------------------- */
     
     int stackSize = sizeof(float)*getImageSize()*numberOfFiles();
@@ -241,98 +471,106 @@ int main (int argc, const char * argv[])
                         }
                     }
                 }
-
+                
+                
                 //Apply forward transform
                 //First x-wise
-                for(int i = 0; i < 3; i++){
-                    for(int j = 0; j < 3; j++){
-                        float * tmpRowR = malloc(sizeof(float)*3);
-                        float * tmpRowI = malloc(sizeof(float)*3);
-                        
-                        // throw into a tmp array to do FFT upon
-                        tmpRowR[0] = DatR[i][j][0];
-                        tmpRowR[1] = DatR[i][j][1];
-                        tmpRowR[2] = DatR[i][j][2];
-                        
-                        tmpRowI[0] = DatI[i][j][0];
-                        tmpRowI[1] = DatI[i][j][1];
-                        tmpRowI[2] = DatI[i][j][2];
+                for (int i = 0; i < 3; i ++) {
+                    for (int j = 0; j < 3; j ++) {
+                        for (int k = 0; k < 3; k ++) {
+                            float * tmpRowR = malloc(sizeof(float)*3);
+                            float * tmpRowI = malloc(sizeof(float)*3);
+                            
+                            // throw into a tmp array to do FFT upon
+                            tmpRowR[0] = DatR[i][j][k];
+                            tmpRowR[1] = DatR[i][j][k];
+                            tmpRowR[2] = DatR[i][j][k];
+                            
+                            tmpRowI[0] = DatI[i][j][k];
+                            tmpRowI[1] = DatI[i][j][k];
+                            tmpRowI[2] = DatI[i][j][k];
+                            
+                            //apply FFT
+                            DFT(FFT_FORWARD, 3, tmpRowR, tmpRowI);
+                            
+                            // store the result into original array
+                            DatR[i][j][k] = tmpRowR[0];
+                            DatR[i][j][k] = tmpRowR[1];
+                            DatR[i][j][k] = tmpRowR[2];
+                            
+                            DatI[i][j][k] = tmpRowI[0];
+                            DatI[i][j][k] = tmpRowI[1];
+                            DatI[i][j][k] = tmpRowI[2];
 
-                        //apply FFT
-                        DFT(FFT_FORWARD, 3, tmpRowR, tmpRowI);
-                        
-                        // store the result into original array
-                        DatR[i][j][0] = tmpRowR[0];
-                        DatR[i][j][1] = tmpRowR[1];
-                        DatR[i][j][2] = tmpRowR[2];
-                        
-                        DatI[i][j][0] = tmpRowI[0];
-                        DatI[i][j][1] = tmpRowI[1];
-                        DatI[i][j][2] = tmpRowI[2];
-                        
+                        }
+                    }
+                }
+
+                                
+                //Then y-wise
+                for (int i = 0; i < 3; i ++) {
+                    for (int k = 0; k < 3; k ++) {
+                        for (int j = 0; j < 3; j ++) {
+                            float * tmpColR = malloc(sizeof(float)*3);
+                            float * tmpColI = malloc(sizeof(float)*3);
+                            
+                            // throw into a tmp array to do FFT upon
+                            tmpColR[0] = DatR[i][j][k];
+                            tmpColR[1] = DatR[i][j][k];
+                            tmpColR[2] = DatR[i][j][k];
+                            
+                            tmpColI[0] = DatI[i][j][k];
+                            tmpColI[1] = DatI[i][j][k];
+                            tmpColI[2] = DatI[i][j][k];
+                            
+                            //apply FFT
+                            DFT(FFT_FORWARD, 3, tmpColR, tmpColI);
+                            
+                            // store the result into original array
+                            DatR[i][j][k] = tmpColR[0];
+                            DatR[i][j][k] = tmpColR[1];
+                            DatR[i][j][k] = tmpColR[2];
+                            
+                            DatI[i][j][k] = tmpColI[0];
+                            DatI[i][j][k] = tmpColI[1];
+                            DatI[i][j][k] = tmpColI[2];                        }
                     }
                 }
                 
-                //Then y-wise
-                for(int i = 0; i < 3; i++){
-                    for(int k = 0; k < 3; k++){
-                        float * tmpColR = malloc(sizeof(float)*3);
-                        float * tmpColI = malloc(sizeof(float)*3);
-                        
-                        // throw into a tmp array to do FFT upon
-                        tmpColR[0] = DatR[i][0][k];
-                        tmpColR[1] = DatR[i][1][k];
-                        tmpColR[2] = DatR[i][2][k];
-                        
-                        tmpColI[0] = DatI[i][0][k];
-                        tmpColI[1] = DatI[i][1][k];
-                        tmpColI[2] = DatI[i][2][k];
-                        
-                        //apply FFT
-                        DFT(FFT_FORWARD, 3, tmpColR, tmpColI);
-                        
-                        // store the result into original array
-                        DatR[i][0][k] = tmpColR[0];
-                        DatR[i][1][k] = tmpColR[1];
-                        DatR[i][2][k] = tmpColR[2];
-                        
-                        DatI[i][0][k] = tmpColI[0];
-                        DatI[i][1][k] = tmpColI[1];
-                        DatI[i][2][k] = tmpColI[2];
-                        
-                    }
-                }
+                
                 
                 //Then z-wise
-                for(int j = 0; j < 3; j++){
-                    for(int k = 0; k < 3; k++){
-                        float * tmpSliR = malloc(sizeof(float)*3);
-                        float * tmpSliI = malloc(sizeof(float)*3);
-                        
-                        // throw into a tmp array to do FFT upon
-                        tmpSliR[0] = DatR[0][j][k];
-                        tmpSliR[1] = DatR[1][j][k];
-                        tmpSliR[2] = DatR[2][j][k];
-                        
-                        tmpSliI[0] = DatI[0][j][k];
-                        tmpSliI[1] = DatI[1][j][k];
-                        tmpSliI[2] = DatI[2][j][k];
-                        
-                        //apply FFT
-                        DFT(FFT_FORWARD, 3, tmpSliR, tmpSliI);
-                        
-                        // store the result into original array
-                        DatR[0][j][k] = tmpSliR[0];
-                        DatR[1][j][k] = tmpSliR[1];
-                        DatR[2][j][k] = tmpSliR[2];
-                        
-                        DatI[0][j][k] = tmpSliI[0];
-                        DatI[1][j][k] = tmpSliI[1];
-                        DatI[2][j][k] = tmpSliI[2];
-                        
+                for (int j = 0; j < 3; j ++) {
+                    for (int k = 0; k < 3; k ++) {
+                        for (int i = 0; i < 3; i ++) {
+                            float * tmpSliR = malloc(sizeof(float)*3);
+                            float * tmpSliI = malloc(sizeof(float)*3);
+                            
+                            // throw into a tmp array to do FFT upon
+                            tmpSliR[0] = DatR[i][j][k];
+                            tmpSliR[1] = DatR[i][j][k];
+                            tmpSliR[2] = DatR[i][j][k];
+                            
+                            tmpSliI[0] = DatI[i][j][k];
+                            tmpSliI[1] = DatI[i][j][k];
+                            tmpSliI[2] = DatI[i][j][k];
+                            
+                            //apply FFT
+                            DFT(FFT_FORWARD, 3, tmpSliR, tmpSliI);
+                            
+                            // store the result into original array
+                            DatR[i][j][k] = tmpSliR[0];
+                            DatR[i][j][k] = tmpSliR[1];
+                            DatR[i][j][k] = tmpSliR[2];
+                            
+                            DatI[i][j][k] = tmpSliI[0];
+                            DatI[i][j][k] = tmpSliI[1];
+                            DatI[i][j][k] = tmpSliI[2];
+                        }
                     }
                 }
-                
+        
+                /*
                 //convolution 
                 //generate the kernel
                 //(Laplacian)
@@ -495,107 +733,113 @@ int main (int argc, const char * argv[])
                     }
                 }
                 //end of convolution
+                */
                 
                 //inverse transformation
                 //First z-wise
-                for(int j = 0; j < 3; j++){
-                    for(int k = 0; k < 3; k++){
-                        float * tmpSliR = malloc(sizeof(float)*3);
-                        float * tmpSliI = malloc(sizeof(float)*3);
-                        
-                        // throw into a tmp array to do FFT upon
-                        tmpSliR[0] = DatR[0][j][k];
-                        tmpSliR[1] = DatR[1][j][k];
-                        tmpSliR[2] = DatR[2][j][k];
-                        
-                        tmpSliI[0] = DatI[0][j][k];
-                        tmpSliI[1] = DatI[1][j][k];
-                        tmpSliI[2] = DatI[2][j][k];
-                        
-                        //apply INVFFT
-                        DFT(FFT_REVERSE, 3, tmpSliR, tmpSliI);
-                        
-                        // store the result into original array
-                        DatR[0][j][k] = tmpSliR[0];
-                        DatR[1][j][k] = tmpSliR[1];
-                        DatR[2][j][k] = tmpSliR[2];
-                        
-                        DatI[0][j][k] = tmpSliI[0];
-                        DatI[1][j][k] = tmpSliI[1];
-                        DatI[2][j][k] = tmpSliI[2];
-                        
-                    }
-                }
-                
-                //Then y-wise
-                for(int i = 0; i < 3; i++){
-                    for(int k = 0; k < 3; k++){
-                        float * tmpColR = malloc(sizeof(float)*3);
-                        float * tmpColI = malloc(sizeof(float)*3);
-                        
-                        // throw into a tmp array to do FFT upon
-                        tmpColR[0] = DatR[i][0][k];
-                        tmpColR[1] = DatR[i][1][k];
-                        tmpColR[2] = DatR[i][2][k];
-                        
-                        tmpColI[0] = DatI[i][0][k];
-                        tmpColI[1] = DatI[i][1][k];
-                        tmpColI[2] = DatI[i][2][k];
-                        
-                        //apply INVFFT
-                        DFT(FFT_REVERSE, 3, tmpColR, tmpColI);
-                        
-                        // store the result into original array
-                        DatR[i][0][k] = tmpColR[0];
-                        DatR[i][1][k] = tmpColR[1];
-                        DatR[i][2][k] = tmpColR[2];
-                        
-                        DatI[i][0][k] = tmpColI[0];
-                        DatI[i][1][k] = tmpColI[1];
-                        DatI[i][2][k] = tmpColI[2];
-                        
-                    }
-                }
-                
-                //Finally x-wise
-                for(int i = 0; i < 3; i++){
-                    for(int j = 0; j < 3; j++){
-                        float * tmpRowR = malloc(sizeof(float)*3);
-                        float * tmpRowI = malloc(sizeof(float)*3);
-                        
-                        // throw into a tmp array to do FFT upon
-                        tmpRowR[0] = DatR[i][j][0];
-                        tmpRowR[1] = DatR[i][j][1];
-                        tmpRowR[2] = DatR[i][j][2];
-                        
-                        tmpRowI[0] = DatI[i][j][0];
-                        tmpRowI[1] = DatI[i][j][1];
-                        tmpRowI[2] = DatI[i][j][2];
-                        
-                        //apply FFT
-                        DFT(FFT_REVERSE, 3, tmpRowR, tmpRowI);
-                        
-                        // store the result into original array
-                        DatR[i][j][0] = tmpRowR[0];
-                        DatR[i][j][1] = tmpRowR[1];
-                        DatR[i][j][2] = tmpRowR[2];
-                        
-                        DatI[i][j][0] = tmpRowI[0];
-                        DatI[i][j][1] = tmpRowI[1];
-                        DatI[i][j][2] = tmpRowI[2];
-                        
-                    }
-                }
-                
-                // ------------------------> Multiply Da by (3*3*3) denoted Dk <------------------------ 
-                for (int i = 0; i < 3; i ++) {
-                    for (int j = 0; j < 3; j ++) {
-                        for (int k = 0; k < 3; k ++) {
-                            DatR[i][j][k] = DatR[i][j][k] * (3*3*3);
-                            DatI[i][j][k] = DatI[i][j][k] * (3*3*3);
+                for (int j = 0; j < 3; j ++) {
+                    for (int k = 0; k < 3; k ++) {
+                        for (int i = 0; i < 3; i ++) {
+                            float * tmpSliR = malloc(sizeof(float)*3);
+                            float * tmpSliI = malloc(sizeof(float)*3);
+                            
+                            // throw into a tmp array to do FFT upon
+                            tmpSliR[0] = DatR[i][j][k];
+                            tmpSliR[1] = DatR[i][j][k];
+                            tmpSliR[2] = DatR[i][j][k];
+                            
+                            tmpSliI[0] = DatI[i][j][k];
+                            tmpSliI[1] = DatI[i][j][k];
+                            tmpSliI[2] = DatI[i][j][k];
+                            
+                            //apply INVFFT
+                            DFT(FFT_REVERSE, 3, tmpSliR, tmpSliI);
+                            
+                            // store the result into original array
+                            DatR[i][j][k] = tmpSliR[0];
+                            DatR[i][j][k] = tmpSliR[1];
+                            DatR[i][j][k] = tmpSliR[2];
+                            
+                            DatI[i][j][k] = tmpSliI[0];
+                            DatI[i][j][k] = tmpSliI[1];
+                            DatI[i][j][k] = tmpSliI[2];                        
                         }
                     }
                 }
+                
+                
+                //Then y-wise
+                for (int i = 0; i < 3; i ++) {
+                    for (int k = 0; k < 3; k ++) {
+                        for (int j = 0; j < 3; j ++) {
+                            float * tmpColR = malloc(sizeof(float)*3);
+                            float * tmpColI = malloc(sizeof(float)*3);
+                            
+                            // throw into a tmp array to do FFT upon
+                            tmpColR[0] = DatR[i][j][k];
+                            tmpColR[1] = DatR[i][j][k];
+                            tmpColR[2] = DatR[i][j][k];
+                            
+                            tmpColI[0] = DatI[i][j][k];
+                            tmpColI[1] = DatI[i][j][k];
+                            tmpColI[2] = DatI[i][j][k];
+                            
+                            //apply INVFFT
+                            DFT(FFT_REVERSE, 3, tmpColR, tmpColI);
+                            
+                            // store the result into original array
+                            DatR[i][j][k] = tmpColR[0];
+                            DatR[i][j][k] = tmpColR[1];
+                            DatR[i][j][k] = tmpColR[2];
+                            
+                            DatI[i][j][k] = tmpColI[0];
+                            DatI[i][j][k] = tmpColI[1];
+                            DatI[i][j][k] = tmpColI[2];                        }
+                    }
+                }
+                
+                
+                //Finally x-wise
+                for (int i = 0; i < 3; i ++) {
+                    for (int j = 0; j < 3; j ++) {
+                        for (int k = 0; k < 3; k ++) {
+                            float * tmpRowR = malloc(sizeof(float)*3);
+                            float * tmpRowI = malloc(sizeof(float)*3);
+                            
+                            // throw into a tmp array to do FFT upon
+                            tmpRowR[0] = DatR[i][j][k];
+                            tmpRowR[1] = DatR[i][j][k];
+                            tmpRowR[2] = DatR[i][j][k];
+                            
+                            tmpRowI[0] = DatI[i][j][k];
+                            tmpRowI[1] = DatI[i][j][k];
+                            tmpRowI[2] = DatI[i][j][k];
+                            
+                            //apply FFT
+                            DFT(FFT_REVERSE, 3, tmpRowR, tmpRowI);
+                            
+                            // store the result into original array
+                            DatR[i][j][k] = tmpRowR[0];
+                            DatR[i][j][k] = tmpRowR[1];
+                            DatR[i][j][k] = tmpRowR[2];
+                            
+                            DatI[i][j][k] = tmpRowI[0];
+                            DatI[i][j][k] = tmpRowI[1];
+                            DatI[i][j][k] = tmpRowI[2];
+                        }
+                    }
+                }
+                
+                
+                // ------------------------> Multiply Da by (3*3*3) denoted Dk <------------------------ 
+//                for (int i = 0; i < 3; i ++) {
+//                    for (int j = 0; j < 3; j ++) {
+//                        for (int k = 0; k < 3; k ++) {
+//                            DatR[i][j][k] = DatR[i][j][k] * (3*3*3);
+//                            DatI[i][j][k] = DatI[i][j][k] * (3*3*3);
+//                        }
+//                    }
+//                }
                 
                 //finally store our results back into original DaR array
                 for(int i = 0; i < 3; i++){
