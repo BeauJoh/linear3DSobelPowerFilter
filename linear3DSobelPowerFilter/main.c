@@ -456,354 +456,335 @@ int main (int argc, const char * argv[])
     for (int z = 0; z < numberOfFiles(); z += 3) {
         for (int y = 0; y < getImageHeight(); y += 3) {
             for (int x = 0; x < getImageWidth(); x += 3) {
+                for (int c = 0; c < getSamplesPerPixel() -3; c++) {
                 
-                float DatR[4][4][4];
-                float DatI[4][4][4];
-                
-                
-                //set out 4 window size (need 3 for correct filter focus, however need to be dyadic for fft, solution use window 
-                //size of 4*4*4 whilst only populating the 3*3*3 and padding the rest with zeros)
-                for(int i = 0; i < 4; i++){
-                    for(int j = 0; j < 4; j++){
-                        for(int k = 0; k < 4; k++){
-                            if (k == 3 || j == 3 || i == 3) {
-                                DatR[i][j][k] = 0;
-                                DatI[i][j][k] = 0;
-                            }
-                            else{
-                                DatR[i][j][k] = DaR[((z+i)*getImageHeight()*getImageWidth()) + ((y+j)*getImageWidth()) + (x+k)*4];
-                                DatI[i][j][k] = DaI[((z+i)*getImageHeight()*getImageWidth()) + ((y+j)*getImageWidth()) + (x+k)*4];
-                            }
-                        }
-                    }
-                }
-                
-                
-                //row wise fft
-                for (int i = 0; i < 4; i ++) {
-                    for (int j = 0; j < 4; j ++) {
-                        float * tmpRowR = malloc(sizeof(float)*4);
-                        float * tmpRowI = malloc(sizeof(float)*4);
-                        
-                        //collect a row
-                        for (int k = 0; k < 4; k ++) {
-                            // throw into a tmp array to do FFT upon
-                            tmpRowR[k] = DatR[i][j][k];
-                            tmpRowI[k] = DatI[i][j][k];
-                        }
-                        
-                        //apply FFT
-                        FFT(FFT_FORWARD, 2, tmpRowR, tmpRowI);
-                        
-                        // store the resulting row into original array
-                        for (int k = 0; k < 4; k ++) {
-                            // throw into a tmp array to do FFT upon
-                            DatR[i][j][k] = tmpRowR[k];
-                            DatI[i][j][k] = tmpRowI[k];
-                        }
-                    }
-                }
-                
-                //column wise fft
-                for (int i = 0; i < 4; i ++) {
-                    for (int k = 0; k < 4; k ++) {
-                        float * tmpColR = malloc(sizeof(float)*4);
-                        float * tmpColI = malloc(sizeof(float)*4);
-                        
-                        for (int j = 0; j < 4; j ++) {
-                            // throw into a tmp array to do FFT upon
-                            tmpColR[j] = DatR[i][j][k];
-                            tmpColI[j] = DatI[i][j][k];
-                        }
-                        
-                        //apply FFT
-                        FFT(FFT_FORWARD, 2, tmpColR, tmpColI);
-                        
-                        for (int j = 0; j < 4; j ++) {
-                            // throw into a tmp array to do FFT upon
-                            DatR[i][j][k] = tmpColR[j];
-                            DatI[i][j][k] = tmpColI[j];
-                        }
-                    }
-                }
-                
-                //slice wise fft
-                for (int j = 0; j < 4; j ++) {
-                    for (int k = 0; k < 4; k ++) {
-                        float * tmpSliR = malloc(sizeof(float)*4);
-                        float * tmpSliI = malloc(sizeof(float)*4);
-                        
-                        //throw present slice into a tmp array to do FFT upon
-                        for (int i = 0; i < 4; i ++) {
-                            tmpSliR[i] = DatR[i][j][k];
-                            tmpSliI[i] = DatI[i][j][k];
-                        }
-                        
-                        //apply FFT
-                        FFT(FFT_FORWARD, 2, tmpSliR, tmpSliI);
-                        
-                        //collect present slice into original 4*4*4 array
-                        for (int i = 0; i < 4; i ++) {
-                            DatR[i][j][k] = tmpSliR[i];
-                            DatI[i][j][k] = tmpSliI[i];
-                        }
-                        
-                    }
-                }
-
-                
-                // ------------------------> Divide Da by (3*3*3) denoted Dk <------------------------ 
-                for (int i = 0; i < 3; i ++) {
-                    for (int j = 0; j < 3; j ++) {
-                        for (int k = 0; k < 3; k ++) {
-                            DatR[i][j][k] = DatR[i][j][k] / (3*3*3);
-                            DatI[i][j][k] = DatI[i][j][k] / (3*3*3);
-                        }
-                    }
-                }
-
-        
-                
-                //convolution 
-                //generate the kernel
-                //(Laplacian)
-                float DkR[4][4][4];
-                float DkI[4][4][4];
-                for (int i = 0; i < 4; i ++) {
-                    for (int j = 0; j < 4; j ++) {
-                        for (int k = 0; k < 4; k++) {
-                            if (i == 3 || j == 3 || k == 3) {
-                                DkR[i][j][k] = 0;
-                            }
-                            else {
-                                //if the kernel in the middle
-                                if (i == 1 && j == 1 && k == 1) {
-                                    DkR[i][j][k] = 0;
+                    float DatR[4][4][4];
+                    float DatI[4][4][4];
+                    
+                    
+                    //set out 4 window size (need 3 for correct filter focus, however need to be dyadic for fft, solution use window 
+                    //size of 4*4*4 whilst only populating the 3*3*3 and padding the rest with zeros)
+                    for(int i = 0; i < 4; i++){
+                        for(int j = 0; j < 4; j++){
+                            for(int k = 0; k < 4; k++){
+                                if (k == 3 || j == 3 || i == 3) {
+                                    DatR[i][j][k] = 0;
+                                    DatI[i][j][k] = 0;
                                 }
                                 else{
-                                    DkR[i][j][k] = -1;
+                                    DatR[i][j][k] = DaR[((z+i)*getImageHeight()*getImageWidth()) + ((y+j)*getImageWidth()) + (x+k)*getSamplesPerPixel() + c];
+                                    DatI[i][j][k] = DaI[((z+i)*getImageHeight()*getImageWidth()) + ((y+j)*getImageWidth()) + (x+k)*getSamplesPerPixel() + c];
                                 }
-                                DkI[i][j][k] = 0;
                             }
                         }
                     }
-                }
-                
-                
-                //    float filtX[3] = {-1, 0, 1};
-                //    float filtY[3] = {-1, 0, 1};
-                //    float filtZ[3] = {-1, 0, 1};
-                //    
-                //    float dvfXYZ[3][3][3];
-                //    float dvfYZX[3][3][3];
-                //    float dvfZXY[3][3][3];
-                //    
-                //    for(int i = 0; i < 3; i++){
-                //        for(int j = 0; j < 3; j++){
-                //            for(int k = 0; k < 3; k++){
-                //                dvfXYZ[i][j][k] = - filtX[i] * exp(-((pow(filtX[i],2)+pow(filtY[j],2)+pow(filtZ[k],2))/2));
-                //                dvfYZX[i][j][k] = - filtY[j] * exp(-((pow(filtX[i],2)+pow(filtY[j],2)+pow(filtZ[k],2))/2));
-                //                dvfZXY[i][j][k] = - filtZ[k] * exp(-((pow(filtX[i],2)+pow(filtY[j],2)+pow(filtZ[k],2))/2));
-                //            }
-                //        }
-                //    }
-                
-                
-                //Apply forward transform upon filter
-                //First x-wise
-                for (int i = 0; i < 4; i ++) {
+                    
+                    
+                    //row wise fft
+                    for (int i = 0; i < 4; i ++) {
+                        for (int j = 0; j < 4; j ++) {
+                            float * tmpRowR = malloc(sizeof(float)*4);
+                            float * tmpRowI = malloc(sizeof(float)*4);
+                            
+                            //collect a row
+                            for (int k = 0; k < 4; k ++) {
+                                // throw into a tmp array to do FFT upon
+                                tmpRowR[k] = DatR[i][j][k];
+                                tmpRowI[k] = DatI[i][j][k];
+                            }
+                            
+                            //apply FFT
+                            FFT(FFT_FORWARD, 2, tmpRowR, tmpRowI);
+                            
+                            // store the resulting row into original array
+                            for (int k = 0; k < 4; k ++) {
+                                // throw into a tmp array to do FFT upon
+                                DatR[i][j][k] = tmpRowR[k];
+                                DatI[i][j][k] = tmpRowI[k];
+                            }
+                        }
+                    }
+                    
+                    //column wise fft
+                    for (int i = 0; i < 4; i ++) {
+                        for (int k = 0; k < 4; k ++) {
+                            float * tmpColR = malloc(sizeof(float)*4);
+                            float * tmpColI = malloc(sizeof(float)*4);
+                            
+                            for (int j = 0; j < 4; j ++) {
+                                // throw into a tmp array to do FFT upon
+                                tmpColR[j] = DatR[i][j][k];
+                                tmpColI[j] = DatI[i][j][k];
+                            }
+                            
+                            //apply FFT
+                            FFT(FFT_FORWARD, 2, tmpColR, tmpColI);
+                            
+                            for (int j = 0; j < 4; j ++) {
+                                // throw into a tmp array to do FFT upon
+                                DatR[i][j][k] = tmpColR[j];
+                                DatI[i][j][k] = tmpColI[j];
+                            }
+                        }
+                    }
+                    
+                    //slice wise fft
                     for (int j = 0; j < 4; j ++) {
-                        float * tmpRowR = malloc(sizeof(float)*4);
-                        float * tmpRowI = malloc(sizeof(float)*4);
-                        
-                        //collect a row
                         for (int k = 0; k < 4; k ++) {
-                            // throw into a tmp array to do FFT upon
-                            tmpRowR[k] = DkR[i][j][k];
-                            tmpRowI[k] = DkI[i][j][k];
+                            float * tmpSliR = malloc(sizeof(float)*4);
+                            float * tmpSliI = malloc(sizeof(float)*4);
+                            
+                            //throw present slice into a tmp array to do FFT upon
+                            for (int i = 0; i < 4; i ++) {
+                                tmpSliR[i] = DatR[i][j][k];
+                                tmpSliI[i] = DatI[i][j][k];
+                            }
+                            
+                            //apply FFT
+                            FFT(FFT_FORWARD, 2, tmpSliR, tmpSliI);
+                            
+                            //collect present slice into original 4*4*4 array
+                            for (int i = 0; i < 4; i ++) {
+                                DatR[i][j][k] = tmpSliR[i];
+                                DatI[i][j][k] = tmpSliI[i];
+                            }
+                            
                         }
-                        
-                        //apply FFT
-                        FFT(FFT_FORWARD, 2, tmpRowR, tmpRowI);
-                        
-                        // store the resulting row into original array
+                    }
+
+                    
+                    // ------------------------> Divide Da by (3*3*3) denoted Dk <------------------------ 
+                    for (int i = 0; i < 3; i ++) {
+                        for (int j = 0; j < 3; j ++) {
+                            for (int k = 0; k < 3; k ++) {
+                                DatR[i][j][k] = DatR[i][j][k] / (3*3*3);
+                                DatI[i][j][k] = DatI[i][j][k] / (3*3*3);
+                            }
+                        }
+                    }
+
+            
+                    
+                    //convolution 
+                    //generate the kernel
+                    //(Sobel Power Filter Bank)
+                    float DkR[4][4][4];
+                    float DkI[4][4][4];
+                    
+                    float filtX[3] = {-1, 0, 1};
+                    float filtY[3] = {-1, 0, 1};
+                    float filtZ[3] = {-1, 0, 1};
+                    
+                    for (int i = 0; i < 4; i ++) {
+                        for (int j = 0; j < 4; j ++) {
+                            for (int k = 0; k < 4; k++) {
+                                if (i == 3 || j == 3 || k == 3) {
+                                    DkR[i][j][k] = 0;
+                                }
+                                else {
+                                    DkR[i][j][k] = - (pow(filtX[i],2)) * (pow(filtY[j],5)) * exp(-((pow(filtX[i],2)+pow(filtY[j],2)+pow(filtZ[k],2))/3));
+                                }
+                                
+                                DkI[i][j][k] = 0;
+                                
+                            }
+                        }
+                    }
+                    
+                    //Apply forward transform upon filter
+                    //First x-wise
+                    for (int i = 0; i < 4; i ++) {
+                        for (int j = 0; j < 4; j ++) {
+                            float * tmpRowR = malloc(sizeof(float)*4);
+                            float * tmpRowI = malloc(sizeof(float)*4);
+                            
+                            //collect a row
+                            for (int k = 0; k < 4; k ++) {
+                                // throw into a tmp array to do FFT upon
+                                tmpRowR[k] = DkR[i][j][k];
+                                tmpRowI[k] = DkI[i][j][k];
+                            }
+                            
+                            //apply FFT
+                            FFT(FFT_FORWARD, 2, tmpRowR, tmpRowI);
+                            
+                            // store the resulting row into original array
+                            for (int k = 0; k < 4; k ++) {
+                                // throw into a tmp array to do FFT upon
+                                DkR[i][j][k] = tmpRowR[k];
+                                DkI[i][j][k] = tmpRowI[k];
+                            }
+                        }
+                    }
+                    
+                    //Then y-wise
+                    for (int i = 0; i < 4; i ++) {
                         for (int k = 0; k < 4; k ++) {
-                            // throw into a tmp array to do FFT upon
-                            DkR[i][j][k] = tmpRowR[k];
-                            DkI[i][j][k] = tmpRowI[k];
+                            float * tmpColR = malloc(sizeof(float)*4);
+                            float * tmpColI = malloc(sizeof(float)*4);
+                            
+                            for (int j = 0; j < 4; j ++) {
+                                // throw into a tmp array to do FFT upon
+                                tmpColR[j] = DkR[i][j][k];
+                                tmpColI[j] = DkI[i][j][k];
+                            }
+                            
+                            //apply FFT
+                            FFT(FFT_FORWARD, 2, tmpColR, tmpColI);
+                            
+                            for (int j = 0; j < 4; j ++) {
+                                // throw into a tmp array to do FFT upon
+                                DkR[i][j][k] = tmpColR[j];
+                                DkI[i][j][k] = tmpColI[j];
+                            }
                         }
                     }
-                }
-                
-                //Then y-wise
-                for (int i = 0; i < 4; i ++) {
-                    for (int k = 0; k < 4; k ++) {
-                        float * tmpColR = malloc(sizeof(float)*4);
-                        float * tmpColI = malloc(sizeof(float)*4);
-                        
-                        for (int j = 0; j < 4; j ++) {
-                            // throw into a tmp array to do FFT upon
-                            tmpColR[j] = DkR[i][j][k];
-                            tmpColI[j] = DkI[i][j][k];
-                        }
-                        
-                        //apply FFT
-                        FFT(FFT_FORWARD, 2, tmpColR, tmpColI);
-                        
-                        for (int j = 0; j < 4; j ++) {
-                            // throw into a tmp array to do FFT upon
-                            DkR[i][j][k] = tmpColR[j];
-                            DkI[i][j][k] = tmpColI[j];
-                        }
-                    }
-                }
-                
-                //Then z-wise
-                for (int j = 0; j < 4; j ++) {
-                    for (int k = 0; k < 4; k ++) {
-                        float * tmpSliR = malloc(sizeof(float)*4);
-                        float * tmpSliI = malloc(sizeof(float)*4);
-                        
-                        //throw present slice into a tmp array to do FFT upon
-                        for (int i = 0; i < 4; i ++) {
-                            tmpSliR[i] = DkR[i][j][k];
-                            tmpSliI[i] = DkI[i][j][k];
-                        }
-                        
-                        //apply FFT
-                        FFT(FFT_FORWARD, 2, tmpSliR, tmpSliI);
-                        
-                        //collect present slice into original 4*4*4 array
-                        for (int i = 0; i < 4; i ++) {
-                            DkR[i][j][k] = tmpSliR[i];
-                            DkI[i][j][k] = tmpSliI[i];
-                        }
-                        
-                    }
-                }
-                
-                //apply convolution
-                // ------------------------> Divide Dk by (3*3*3) denoted Dk <------------------------ 
-                for (int i = 0; i < 3; i ++) {
-                    for (int j = 0; j < 3; j ++) {
-                        for (int k = 0; k < 3; k ++) {
-                            DkR[i][j][k] = DkR[i][j][k] / (3*3*3);
-                            DkI[i][j][k] = DkI[i][j][k] / (3*3*3);
-                        }
-                    }
-                }
-                
-                // ------------------------> Take the complex conjugate of Da <---------------------------
-                for (int i = 0; i < 3; i ++) {
-                    for (int j = 0; j < 3; j ++) {
-                        for (int k = 0; k < 3; k ++) {
-                            DatI[i][j][k] = -DatI[i][j][k];
-                        }
-                    }
-                }
-
-                // ------------------------> (Convolution) Multiply Da conjugate by Dk <-------------
-                for (int i = 0; i < 3; i ++) {
-                    for (int j = 0; j < 3; j ++) {
-                        for (int k = 0; k < 3; k ++) {
-                            DatR[i][j][k] = DatR[i][j][k] * DkR[i][j][k];
-                            DatI[i][j][k] = DatI[i][j][k] * DkI[i][j][k];
-                        }
-                    }
-                }
-                //end of convolution
-                
-                //inverse transformation
-                //First z-wise (slice)
-                for (int j = 0; j < 4; j ++) {
-                    for (int k = 0; k < 4; k ++) {
-                        float * tmpSliR = malloc(sizeof(float)*4);
-                        float * tmpSliI = malloc(sizeof(float)*4);
-                        
-                        //throw present slice into a tmp array to do FFT upon
-                        for (int i = 0; i < 4; i ++) {
-                            tmpSliR[i] = DatR[i][j][k];
-                            tmpSliI[i] = DatI[i][j][k];
-                        }
-                        
-                        //apply FFT
-                        FFT(FFT_REVERSE, 2, tmpSliR, tmpSliI);
-                        
-                        //collect present slice into original 4*4*4 array
-                        for (int i = 0; i < 4; i ++) {
-                            DatR[i][j][k] = tmpSliR[i];
-                            DatI[i][j][k] = tmpSliI[i];
-                        }
-                        
-                    }
-                }
-                
-                //Then y-wise (column wise inverse fft)
-                for (int i = 0; i < 4; i ++) {
-                    for (int k = 0; k < 4; k ++) {
-                        float * tmpColR = malloc(sizeof(float)*4);
-                        float * tmpColI = malloc(sizeof(float)*4);
-                        
-                        for (int j = 0; j < 4; j ++) {
-                            // throw into a tmp array to do FFT upon
-                            tmpColR[j] = DatR[i][j][k];
-                            tmpColI[j] = DatI[i][j][k];
-                        }
-                        
-                        //apply FFT
-                        FFT(FFT_REVERSE, 2, tmpColR, tmpColI);
-                        
-                        for (int j = 0; j < 4; j ++) {
-                            // throw into a tmp array to do FFT upon
-                            DatR[i][j][k] = tmpColR[j];
-                            DatI[i][j][k] = tmpColI[j];
-                        }
-                    }
-                }
-
-                
-                //Finally x-wise (row wise inv fft)
-                for (int i = 0; i < 4; i ++) {
+                    
+                    //Then z-wise
                     for (int j = 0; j < 4; j ++) {
-                        float * tmpRowR = malloc(sizeof(float)*4);
-                        float * tmpRowI = malloc(sizeof(float)*4);
-                        
-                        //collect a row
                         for (int k = 0; k < 4; k ++) {
-                            // throw into a tmp array to do FFT upon
-                            tmpRowR[k] = DatR[i][j][k];
-                            tmpRowI[k] = DatI[i][j][k];
-                        }
-                        
-                        //apply FFT
-                        FFT(FFT_REVERSE, 2, tmpRowR, tmpRowI);
-                        
-                        // store the resulting row into original array
-                        for (int k = 0; k < 4; k ++) {
-                            // throw into a tmp array to do FFT upon
-                            DatR[i][j][k] = tmpRowR[k];
-                            DatI[i][j][k] = tmpRowI[k];
+                            float * tmpSliR = malloc(sizeof(float)*4);
+                            float * tmpSliI = malloc(sizeof(float)*4);
+                            
+                            //throw present slice into a tmp array to do FFT upon
+                            for (int i = 0; i < 4; i ++) {
+                                tmpSliR[i] = DkR[i][j][k];
+                                tmpSliI[i] = DkI[i][j][k];
+                            }
+                            
+                            //apply FFT
+                            FFT(FFT_FORWARD, 2, tmpSliR, tmpSliI);
+                            
+                            //collect present slice into original 4*4*4 array
+                            for (int i = 0; i < 4; i ++) {
+                                DkR[i][j][k] = tmpSliR[i];
+                                DkI[i][j][k] = tmpSliI[i];
+                            }
+                            
                         }
                     }
-                }                
-                
-                // ------------------------> Multiply Da by (3*3*3) denoted Dk <------------------------ 
-                for (int i = 0; i < 3; i ++) {
-                    for (int j = 0; j < 3; j ++) {
-                        for (int k = 0; k < 3; k ++) {
-                            DatR[i][j][k] = DatR[i][j][k] * (3*3*3);
-                            DatI[i][j][k] = DatI[i][j][k] * (3*3*3);
+                    
+                    //apply convolution
+                    // ------------------------> Divide Dk by (3*3*3) denoted Dk <------------------------ 
+                    for (int i = 0; i < 3; i ++) {
+                        for (int j = 0; j < 3; j ++) {
+                            for (int k = 0; k < 3; k ++) {
+                                DkR[i][j][k] = DkR[i][j][k] / (3*3*3);
+                                DkI[i][j][k] = DkI[i][j][k] / (3*3*3);
+                            }
                         }
                     }
-                }
-                
-                //finally store our results back into original DaR array
-                for(int i = 0; i < 3; i++){
-                    for(int j = 0; j < 3; j++){
-                        for(int k = 0; k < 3; k++){
-                            for (int c = 0; c < 4; c++) {
-                                DaR[((z+i)*getImageHeight()*getImageWidth()) + ((y+j)*getImageWidth()) + (x+k)*4] = DatR[i][j][k];
-                                DaI[((z+i)*getImageHeight()*getImageWidth()) + ((y+j)*getImageWidth()) + (x+k)*4] = DatI[i][j][k];
+                    
+                    // ------------------------> Take the complex conjugate of Da <---------------------------
+                    for (int i = 0; i < 3; i ++) {
+                        for (int j = 0; j < 3; j ++) {
+                            for (int k = 0; k < 3; k ++) {
+                                DatI[i][j][k] = -DatI[i][j][k];
+                            }
+                        }
+                    }
+
+                    // ------------------------> (Convolution) Multiply Da conjugate by Dk <-------------
+                    for (int i = 0; i < 3; i ++) {
+                        for (int j = 0; j < 3; j ++) {
+                            for (int k = 0; k < 3; k ++) {
+                                DatR[i][j][k] = DatR[i][j][k] * DkR[i][j][k];
+                                DatI[i][j][k] = DatI[i][j][k] * DkI[i][j][k];
+                            }
+                        }
+                    }
+                    //end of convolution
+                    
+                    //inverse transformation
+                    //First z-wise (slice)
+                    for (int j = 0; j < 4; j ++) {
+                        for (int k = 0; k < 4; k ++) {
+                            float * tmpSliR = malloc(sizeof(float)*4);
+                            float * tmpSliI = malloc(sizeof(float)*4);
+                            
+                            //throw present slice into a tmp array to do FFT upon
+                            for (int i = 0; i < 4; i ++) {
+                                tmpSliR[i] = DatR[i][j][k];
+                                tmpSliI[i] = DatI[i][j][k];
+                            }
+                            
+                            //apply FFT
+                            FFT(FFT_REVERSE, 2, tmpSliR, tmpSliI);
+                            
+                            //collect present slice into original 4*4*4 array
+                            for (int i = 0; i < 4; i ++) {
+                                DatR[i][j][k] = tmpSliR[i];
+                                DatI[i][j][k] = tmpSliI[i];
+                            }
+                            
+                        }
+                    }
+                    
+                    //Then y-wise (column wise inverse fft)
+                    for (int i = 0; i < 4; i ++) {
+                        for (int k = 0; k < 4; k ++) {
+                            float * tmpColR = malloc(sizeof(float)*4);
+                            float * tmpColI = malloc(sizeof(float)*4);
+                            
+                            for (int j = 0; j < 4; j ++) {
+                                // throw into a tmp array to do FFT upon
+                                tmpColR[j] = DatR[i][j][k];
+                                tmpColI[j] = DatI[i][j][k];
+                            }
+                            
+                            //apply FFT
+                            FFT(FFT_REVERSE, 2, tmpColR, tmpColI);
+                            
+                            for (int j = 0; j < 4; j ++) {
+                                // throw into a tmp array to do FFT upon
+                                DatR[i][j][k] = tmpColR[j];
+                                DatI[i][j][k] = tmpColI[j];
+                            }
+                        }
+                    }
+
+                    
+                    //Finally x-wise (row wise inv fft)
+                    for (int i = 0; i < 4; i ++) {
+                        for (int j = 0; j < 4; j ++) {
+                            float * tmpRowR = malloc(sizeof(float)*4);
+                            float * tmpRowI = malloc(sizeof(float)*4);
+                            
+                            //collect a row
+                            for (int k = 0; k < 4; k ++) {
+                                // throw into a tmp array to do FFT upon
+                                tmpRowR[k] = DatR[i][j][k];
+                                tmpRowI[k] = DatI[i][j][k];
+                            }
+                            
+                            //apply FFT
+                            FFT(FFT_REVERSE, 2, tmpRowR, tmpRowI);
+                            
+                            // store the resulting row into original array
+                            for (int k = 0; k < 4; k ++) {
+                                // throw into a tmp array to do FFT upon
+                                DatR[i][j][k] = tmpRowR[k];
+                                DatI[i][j][k] = tmpRowI[k];
+                            }
+                        }
+                    }                
+                    
+                    // ------------------------> Multiply Da by (3*3*3) denoted Dk <------------------------ 
+                    for (int i = 0; i < 3; i ++) {
+                        for (int j = 0; j < 3; j ++) {
+                            for (int k = 0; k < 3; k ++) {
+                                DatR[i][j][k] = DatR[i][j][k] * (3*3*3);
+                                DatI[i][j][k] = DatI[i][j][k] * (3*3*3);
+                            }
+                        }
+                    }
+                    
+                    //finally store our results back into original DaR array
+                    for(int i = 0; i < 3; i++){
+                        for(int j = 0; j < 3; j++){
+                            for(int k = 0; k < 3; k++){
+                                DaR[((z+i)*getImageHeight()*getImageWidth()) + ((y+j)*getImageWidth()) + (x+k)*getSamplesPerPixel() + c] = DatR[i][j][k];
+                                DaI[((z+i)*getImageHeight()*getImageWidth()) + ((y+j)*getImageWidth()) + (x+k)*getSamplesPerPixel() + c] = DatI[i][j][k];
                             }
                         }
                     }
