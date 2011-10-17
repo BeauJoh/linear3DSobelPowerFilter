@@ -471,8 +471,8 @@ int main (int argc, const char * argv[])
                                 DatI[i][j][k] = 0;
                             }
                             else{
-                                DatR[i][j][k] = DaR[((z+i)*getImageHeight()*getImageWidth()) + ((y+j)*getImageWidth()) + (x+k)];
-                                DatI[i][j][k] = DaI[((z+i)*getImageHeight()*getImageWidth()) + ((y+j)*getImageWidth()) + (x+k)];
+                                DatR[i][j][k] = DaR[((z+i)*getImageHeight()*getImageWidth()) + ((y+j)*getImageWidth()) + (x+k)*4];
+                                DatI[i][j][k] = DaI[((z+i)*getImageHeight()*getImageWidth()) + ((y+j)*getImageWidth()) + (x+k)*4];
                             }
                         }
                     }
@@ -801,15 +801,16 @@ int main (int argc, const char * argv[])
                 for(int i = 0; i < 3; i++){
                     for(int j = 0; j < 3; j++){
                         for(int k = 0; k < 3; k++){
-                            DaR[((z+i)*getImageHeight()*getImageWidth()) + ((y+j)*getImageWidth()) + (x+k)] = DatR[i][j][k];
-                            DaI[((z+i)*getImageHeight()*getImageWidth()) + ((y+j)*getImageWidth()) + (x+k)] = DatI[i][j][k];
+                            for (int c = 0; c < 4; c++) {
+                                DaR[((z+i)*getImageHeight()*getImageWidth()) + ((y+j)*getImageWidth()) + (x+k)*4] = DatR[i][j][k];
+                                DaI[((z+i)*getImageHeight()*getImageWidth()) + ((y+j)*getImageWidth()) + (x+k)*4] = DatI[i][j][k];
+                            }
                         }
                     }
                 }
             }
         }
     }
-    
 
     // stop timer and show times
     stopTime = clock();
