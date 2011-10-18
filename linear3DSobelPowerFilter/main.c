@@ -453,10 +453,10 @@ int main (int argc, const char * argv[])
     startTime = clock();
 
     //pull down 3*3*3 tiles from the entire image
-    for (int z = 0; z < numberOfFiles(); z += 3) {
-        for (int y = 0; y < getImageHeight(); y += 3) {
-            for (int x = 0; x < getImageWidth(); x += 3) {
-                for (int c = 0; c < getSamplesPerPixel() -3; c++) {
+    for (int z = 0; z < numberOfFiles()-3; z +=3) {
+        for (int y = 0; y < getImageHeight(); y +=3) {
+            for (int x = 0; x < getImageWidth(); x +=3) {
+              for (int c = 0; c < getSamplesPerPixel()-1; c++) {
                 
                     float DatR[4][4][4];
                     float DatI[4][4][4];
@@ -472,8 +472,8 @@ int main (int argc, const char * argv[])
                                     DatI[i][j][k] = 0;
                                 }
                                 else{
-                                    DatR[i][j][k] = DaR[((z+i)*getImageHeight()*getImageWidth()) + ((y+j)*getImageWidth()) + (x+k)*getSamplesPerPixel() + c];
-                                    DatI[i][j][k] = DaI[((z+i)*getImageHeight()*getImageWidth()) + ((y+j)*getImageWidth()) + (x+k)*getSamplesPerPixel() + c];
+                                    DatR[i][j][k] = DaR[((z+i)*getImageHeight()*getImageWidth()*getSamplesPerPixel()) + ((y+j)*getImageWidth()*getSamplesPerPixel()) + (x+k)*getSamplesPerPixel()+c];
+                                    DatI[i][j][k] = DaI[((z+i)*getImageHeight()*getImageWidth()*getSamplesPerPixel()) + ((y+j)*getImageWidth()*getSamplesPerPixel()) + (x+k)*getSamplesPerPixel()+c];
                                 }
                             }
                         }
@@ -502,6 +502,8 @@ int main (int argc, const char * argv[])
                                 DatR[i][j][k] = tmpRowR[k];
                                 DatI[i][j][k] = tmpRowI[k];
                             }
+                            free(tmpRowR);
+                            free(tmpRowI);
                         }
                     }
                     
@@ -525,6 +527,8 @@ int main (int argc, const char * argv[])
                                 DatR[i][j][k] = tmpColR[j];
                                 DatI[i][j][k] = tmpColI[j];
                             }
+                            free(tmpColR);
+                            free(tmpColI);
                         }
                     }
                     
@@ -549,16 +553,18 @@ int main (int argc, const char * argv[])
                                 DatI[i][j][k] = tmpSliI[i];
                             }
                             
+                            free(tmpSliR);
+                            free(tmpSliI);
                         }
                     }
 
                     
                     // ------------------------> Divide Da by (3*3*3) denoted Dk <------------------------ 
-                    for (int i = 0; i < 3; i ++) {
-                        for (int j = 0; j < 3; j ++) {
-                            for (int k = 0; k < 3; k ++) {
-                                DatR[i][j][k] = DatR[i][j][k] / (3*3*3);
-                                DatI[i][j][k] = DatI[i][j][k] / (3*3*3);
+                    for (int i = 0; i < 4; i ++) {
+                        for (int j = 0; j < 4; j ++) {
+                            for (int k = 0; k < 4; k ++) {
+                                DatR[i][j][k] = DatR[i][j][k] / (4*4*4);
+                                DatI[i][j][k] = DatI[i][j][k] / (4*4*4);
                             }
                         }
                     }
@@ -582,9 +588,25 @@ int main (int argc, const char * argv[])
                                     DkR[i][j][k] = 0;
                                 }
                                 else {
-                                    DkR[i][j][k] = - (pow(filtX[i],2)) * (pow(filtY[j],5)) * exp(-((pow(filtX[i],2)+pow(filtY[j],2)+pow(filtZ[k],2))/3));
+                                    if ((k == 0) && (i == 0) && (j == 0)){
+                                        DkR[i][j][k] = 0.223;
+                                    }
+                                    else if ((i == 0) && (j == 2)){
+                                        DkR[i][j][k] = 0.223;
+                                    }
+                                    else if ((i == 2) && (j == 0)){
+                                        DkR[i][j][k] = -0.223;
+                                    }
+                                    else if ((i == 2) && (j == 2)){
+                                        DkR[i][j][k] = -0.223;
+                                    }
+                                    else{
+                                        DkR[i][j][k] = 0;
+                                    }
+                                     
                                 }
                                 
+                                //printf("%f\n", DkR[i][j][k]);
                                 DkI[i][j][k] = 0;
                                 
                             }
@@ -614,6 +636,9 @@ int main (int argc, const char * argv[])
                                 DkR[i][j][k] = tmpRowR[k];
                                 DkI[i][j][k] = tmpRowI[k];
                             }
+                            
+                            free(tmpRowR);
+                            free(tmpRowI);
                         }
                     }
                     
@@ -637,6 +662,9 @@ int main (int argc, const char * argv[])
                                 DkR[i][j][k] = tmpColR[j];
                                 DkI[i][j][k] = tmpColI[j];
                             }
+                            
+                            free(tmpColR);
+                            free(tmpColI);
                         }
                     }
                     
@@ -660,17 +688,30 @@ int main (int argc, const char * argv[])
                                 DkR[i][j][k] = tmpSliR[i];
                                 DkI[i][j][k] = tmpSliI[i];
                             }
-                            
+                            free(tmpSliR);
+                            free(tmpSliI);
                         }
                     }
                     
+                    if (z==0&&y==0&&x==0) {
+                        for (int i = 0; i < 3; i ++) {
+                            for (int j = 0; j < 3; j ++) {
+                                for (int k = 0; k < 3; k ++) {
+                                    printf("at index [%i][%i][%i] -> %f \n", i, j, k, DkR[i][j][k]);
+                                }
+                            }
+                        }
+                        
+                    }
+
+                    
                     //apply convolution
                     // ------------------------> Divide Dk by (3*3*3) denoted Dk <------------------------ 
-                    for (int i = 0; i < 3; i ++) {
-                        for (int j = 0; j < 3; j ++) {
-                            for (int k = 0; k < 3; k ++) {
-                                DkR[i][j][k] = DkR[i][j][k] / (3*3*3);
-                                DkI[i][j][k] = DkI[i][j][k] / (3*3*3);
+                    for (int i = 0; i < 4; i ++) {
+                        for (int j = 0; j < 4; j ++) {
+                            for (int k = 0; k < 4; k ++) {
+                                DkR[i][j][k] = DkR[i][j][k] / (4*4*4);
+                                DkI[i][j][k] = DkI[i][j][k] / (4*4*4);
                             }
                         }
                     }
@@ -716,7 +757,8 @@ int main (int argc, const char * argv[])
                                 DatR[i][j][k] = tmpSliR[i];
                                 DatI[i][j][k] = tmpSliI[i];
                             }
-                            
+                            free(tmpSliR);
+                            free(tmpSliI);
                         }
                     }
                     
@@ -740,6 +782,8 @@ int main (int argc, const char * argv[])
                                 DatR[i][j][k] = tmpColR[j];
                                 DatI[i][j][k] = tmpColI[j];
                             }
+                            free(tmpColR);
+                            free(tmpColI);
                         }
                     }
 
@@ -765,16 +809,18 @@ int main (int argc, const char * argv[])
                                 // throw into a tmp array to do FFT upon
                                 DatR[i][j][k] = tmpRowR[k];
                                 DatI[i][j][k] = tmpRowI[k];
-                            }
+                         }
+                            free(tmpRowR);
+                            free(tmpRowI);
                         }
                     }                
                     
-                    // ------------------------> Multiply Da by (3*3*3) denoted Dk <------------------------ 
-                    for (int i = 0; i < 3; i ++) {
-                        for (int j = 0; j < 3; j ++) {
-                            for (int k = 0; k < 3; k ++) {
-                                DatR[i][j][k] = DatR[i][j][k] * (3*3*3);
-                                DatI[i][j][k] = DatI[i][j][k] * (3*3*3);
+                    // ------------------------> Multiply Da by (3*3*3) denoted Da' <------------------------ 
+                    for (int i = 0; i < 4; i ++) {
+                        for (int j = 0; j < 4; j ++) {
+                            for (int k = 0; k < 4; k ++) {
+                                DatR[i][j][k] = DatR[i][j][k] * (4*4*4);
+                                DatI[i][j][k] = DatI[i][j][k] * (4*4*4);
                             }
                         }
                     }
@@ -783,16 +829,16 @@ int main (int argc, const char * argv[])
                     for(int i = 0; i < 3; i++){
                         for(int j = 0; j < 3; j++){
                             for(int k = 0; k < 3; k++){
-                                DaR[((z+i)*getImageHeight()*getImageWidth()) + ((y+j)*getImageWidth()) + (x+k)*getSamplesPerPixel() + c] = DatR[i][j][k];
-                                DaI[((z+i)*getImageHeight()*getImageWidth()) + ((y+j)*getImageWidth()) + (x+k)*getSamplesPerPixel() + c] = DatI[i][j][k];
-                            }
+                                DaR[((z+i)*getImageHeight()*getImageWidth()*getSamplesPerPixel()) + ((y+j)*getImageWidth()*getSamplesPerPixel()) + (x+k)*getSamplesPerPixel()+c] = DatR[i][j][k];
+                                DaI[((z+i)*getImageHeight()*getImageWidth()*getSamplesPerPixel()) + ((y+j)*getImageWidth()*getSamplesPerPixel()) + (x+k)*getSamplesPerPixel()+c] = DatI[i][j][k];                            
                         }
                     }
                 }
             }
         }
     }
-
+    }
+    
     // stop timer and show times
     stopTime = clock();
     printf("Time to perform convolution was %f seconds\n", (double)(stopTime-startTime)/CLOCKS_PER_SEC);
