@@ -10,6 +10,8 @@
 #include "RGBAUtilities.h"
 #include "FileHandler.h"
 
+#include <time.h>
+
 /* Utility functions not needed on Vanilla Essence C kernel */
 int width, height;
 uint8* readImage(char* fileName){
@@ -449,13 +451,15 @@ int main (int argc, const char * argv[])
         //i) Apply the 1-D FFT to each row of Da, denote this result Da1.
     
     //time it 
-    clock_t startTime, stopTime;
-    startTime = clock();
-
+    struct timeval startTime, stopTime;
+    
+    gettimeofday(&startTime, NULL);
+    
     //pull down 3*3*3 tiles from the entire image
-    for (int z = 0; z < numberOfFiles()-3; z +=3) {
+    for (int z = 0; z < numberOfFiles()-2; z +=3) {
         for (int y = 0; y < getImageHeight(); y +=3) {
             for (int x = 0; x < getImageWidth(); x +=3) {
+                //don't convolve upon the alpha channel
               for (int c = 0; c < getSamplesPerPixel()-1; c++) {
                 
                     float DatR[4][4][4];
@@ -588,30 +592,42 @@ int main (int argc, const char * argv[])
                                     DkR[i][j][k] = 0;
                                 }
                                 else {
-                                    if ((k == 0) && (i == 0) && (j == 0)){
-                                        DkR[i][j][k] = 0.223;
-                                    }
-                                    else if ((i == 0) && (j == 2)){
-                                        DkR[i][j][k] = 0.223;
-                                    }
-                                    else if ((i == 2) && (j == 0)){
-                                        DkR[i][j][k] = -0.223;
-                                    }
-                                    else if ((i == 2) && (j == 2)){
-                                        DkR[i][j][k] = -0.223;
-                                    }
-                                    else{
-                                        DkR[i][j][k] = 0;
-                                    }
+                                    DkR[i][j][k] = - pow(filtX[i],5) * pow(filtY[j], 2) * pow(filtZ[k], 2) * exp(-(pow(filtX[i],2)+pow(filtY[j],2)+pow(filtZ[k],2))/3);
+
+//                                    if ((k == 0) && (i == 0) && (j == 0)){
+//                                        DkR[i][j][k] = 0.223;
+//                                    }
+//                                    else if ((i == 0) && (j == 2)){
+//                                        DkR[i][j][k] = 0.223;
+//                                    }
+//                                    else if ((i == 2) && (j == 0)){
+//                                        DkR[i][j][k] = -0.223;
+//                                    }
+//                                    else if ((i == 2) && (j == 2)){
+//                                        DkR[i][j][k] = -0.223;
+//                                    }
+//                                    else{
+//                                        DkR[i][j][k] = 0;
+//                                    }
                                      
                                 }
                                 
-                                //printf("%f\n", DkR[i][j][k]);
                                 DkI[i][j][k] = 0;
                                 
                             }
                         }
                     }
+                  
+//                  if (z==6&&y==6&&x==6) {
+//                      for (int i = 0; i < 3; i ++) {
+//                          for (int j = 0; j < 3; j ++) {
+//                              for (int k = 0; k < 3; k ++) {
+//                                  printf("at index [%i][%i][%i] -> %f \n", i, j, k, DkR[i][j][k]);
+//                              }
+//                          }
+//                      }
+//                  }
+
                     
                     //Apply forward transform upon filter
                     //First x-wise
@@ -693,17 +709,6 @@ int main (int argc, const char * argv[])
                         }
                     }
                     
-                    if (z==0&&y==0&&x==0) {
-                        for (int i = 0; i < 3; i ++) {
-                            for (int j = 0; j < 3; j ++) {
-                                for (int k = 0; k < 3; k ++) {
-                                    printf("at index [%i][%i][%i] -> %f \n", i, j, k, DkR[i][j][k]);
-                                }
-                            }
-                        }
-                        
-                    }
-
                     
                     //apply convolution
                     // ------------------------> Divide Dk by (3*3*3) denoted Dk <------------------------ 
@@ -831,17 +836,22 @@ int main (int argc, const char * argv[])
                             for(int k = 0; k < 3; k++){
                                 DaR[((z+i)*getImageHeight()*getImageWidth()*getSamplesPerPixel()) + ((y+j)*getImageWidth()*getSamplesPerPixel()) + (x+k)*getSamplesPerPixel()+c] = DatR[i][j][k];
                                 DaI[((z+i)*getImageHeight()*getImageWidth()*getSamplesPerPixel()) + ((y+j)*getImageWidth()*getSamplesPerPixel()) + (x+k)*getSamplesPerPixel()+c] = DatI[i][j][k];                            
+                            }
                         }
                     }
-                }
             }
         }
     }
     }
     
     // stop timer and show times
-    stopTime = clock();
-    printf("Time to perform convolution was %f seconds\n", (double)(stopTime-startTime)/CLOCKS_PER_SEC);
+    gettimeofday(&stopTime, NULL);
+    double elapsedTime;
+    
+    elapsedTime = (stopTime.tv_sec - startTime.tv_sec)*1000.0;
+    elapsedTime += (stopTime.tv_usec - startTime.tv_usec) /1000.0;
+    printf("%f  ms.\n", elapsedTime);
+
     
     //collect result ready for writing
     bigBuffer = denormaliseStack(DaR, numberOfFiles());
