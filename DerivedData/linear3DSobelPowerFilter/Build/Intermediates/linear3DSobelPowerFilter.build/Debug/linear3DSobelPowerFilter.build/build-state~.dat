@@ -1,0 +1,155 @@
+Tlinear3DSobelPowerFilter
+v3
+r1
+cCheck dependencies
+cCompileC DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/DynamicArray.o /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../DynamicArray.c normal x86_64 c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/RGBAUtilities.o /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../RGBAUtilities.c normal x86_64 c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/FileHandler.o /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../FileHandler.c normal x86_64 c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/main.o /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/main.c normal x86_64 c com.apple.compilers.llvm.clang.1_0.compiler
+cLd /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Products/Debug/linear3DSobelPowerFilter normal x86_64
+
+N/Developer/SDKs/MacOSX10.7.sdk
+c000000004E1106D400000000000000EE
+t1309738708
+s238
+
+N/Developer/SDKs/MacOSX10.7.sdk/Library/Frameworks/libpng.framework/libpng
+c000000004D1168F600000000000AF1B8
+t1292986614
+s717240
+
+N/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/DynamicArray.o
+t2
+s0
+
+N/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/FileHandler.o
+t2
+s0
+
+N/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/RGBAUtilities.o
+t2
+s0
+
+N/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/linear3DSobelPowerFilter.LinkFileList
+c000000004E979538000000000000039C
+t1318556984
+s924
+
+N/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/main.o
+t2
+s0
+
+N/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Products/Debug/linear3DSobelPowerFilter
+t2
+s0
+
+N/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../DynamicArray.c
+c000000004E8912250000000000000A82
+t1317605925
+s2690
+
+N/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../FileHandler.c
+c000000004E894FB20000000000002CB8
+t1317621682
+s11448
+
+N/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../RGBAUtilities.c
+c000000004E8A5DA70000000000003ACD
+t1317690791
+s15053
+
+N/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/main.c
+c000000004E9515F5000000000000530B
+t1318393333
+s21259
+
+CBuild AST from /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../DynamicArray.c
+r0
+
+CBuild AST from /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../FileHandler.c
+r0
+
+CBuild AST from /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../RGBAUtilities.c
+r0
+
+CBuild AST from /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/main.c
+r0
+
+CCheck dependencies
+r0
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependenciesc13a8ab8cc47b441^a8728eb8cc47b441^---0#1#0#--18"Check dependencies
+
+CCompileC DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/DynamicArray.o /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../DynamicArray.c normal x86_64 c com.apple.compilers.llvm.clang.1_0.compiler
+s340249784.558766
+e340249784.588680
+r1
+xCompileC
+xDerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/DynamicArray.o
+x/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../DynamicArray.c
+xnormal
+xx86_64
+xc
+xcom.apple.compilers.llvm.clang.1_0.compiler
+o/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../DynamicArray.c:37:5: warning: implicitly declaring C library function 'printf' with type 'int (const char *, ...)' [3]
+o     printf("item has value: %s\n", item);
+o     ^
+o/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../DynamicArray.c:37:5: note: please include the header <stdio.h> or explicitly provide a declaration for 'printf' [3]
+o1 warning generated.
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection121"Compile /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../DynamicArray.cc8248fb8cc47b441^78b396b8cc47b441^-504"/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../DynamicArray.c:37:5: warning: implicitly declaring C library function 'printf' with type 'int (const char *, ...)' [3]     printf("item has value: %s\n", item);     ^/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../DynamicArray.c:37:5: note: please include the header <stdio.h> or explicitly provide a declaration for 'printf' [3]1 warning generated.1(21%IDEActivityLogMessage2@84"Implicitly declaring C library function 'printf' with type 'int (const char *, ...)'63"Implicitly declaring C library function 'printf' with type 'int340249784#0#218#1(2@84"Please include the header <stdio.h> or explicitly provide a declaration for 'printf'-340249784#268#215#-0#-23%DVTTextDocumentLocation3@101"file://localhost/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DynamicArray.c0000000000000000^36#4#36#4#18446744073709551615#0#14"Semantic Issue--1#-3@101"file://localhost/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DynamicArray.c0000000000000000^36#4#36#4#18446744073709551615#0#14"Semantic Issue--0#0#0#-19%DVTDocumentLocation4@129"file://localhost/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../DynamicArray.c0000000000000000^3137"CompileC DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/DynamicArray.o linear3DSobelPowerFilter/../DynamicArray.c normal x86_64 c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter    setenv LANG en_US.US-ASCII    /Developer/usr/bin/clang -x c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -iquote /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/linear3DSobelPowerFilter-generated-files.hmap -I/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/linear3DSobelPowerFilter-own-target-headers.hmap -I/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/linear3DSobelPowerFilter-all-target-headers.hmap -iquote /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/linear3DSobelPowerFilter-project-headers.hmap -I/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Products/Debug/include -I/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/DerivedSources/x86_64 -I/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/DerivedSources -F/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Products/Debug -MMD -MT dependencies -MF /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/DynamicArray.d -c /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../DynamicArray.c -o /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/DynamicArray.o
+
+CCompileC DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/FileHandler.o /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../FileHandler.c normal x86_64 c com.apple.compilers.llvm.clang.1_0.compiler
+s340249784.558814
+e340249784.594552
+r1
+xCompileC
+xDerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/FileHandler.o
+x/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../FileHandler.c
+xnormal
+xx86_64
+xc
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection120"Compile /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../FileHandler.cb1358fb8cc47b441^5d3498b8cc47b441^---0#0#0#-19%DVTDocumentLocation2@128"file://localhost/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../FileHandler.c0000000000000000^3132"CompileC DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/FileHandler.o linear3DSobelPowerFilter/../FileHandler.c normal x86_64 c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter    setenv LANG en_US.US-ASCII    /Developer/usr/bin/clang -x c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -iquote /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/linear3DSobelPowerFilter-generated-files.hmap -I/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/linear3DSobelPowerFilter-own-target-headers.hmap -I/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/linear3DSobelPowerFilter-all-target-headers.hmap -iquote /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/linear3DSobelPowerFilter-project-headers.hmap -I/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Products/Debug/include -I/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/DerivedSources/x86_64 -I/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/DerivedSources -F/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Products/Debug -MMD -MT dependencies -MF /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/FileHandler.d -c /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../FileHandler.c -o /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/FileHandler.o
+
+CCompileC DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/RGBAUtilities.o /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../RGBAUtilities.c normal x86_64 c com.apple.compilers.llvm.clang.1_0.compiler
+s340249784.558806
+e340249784.618323
+r1
+xCompileC
+xDerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/RGBAUtilities.o
+x/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../RGBAUtilities.c
+xnormal
+xx86_64
+xc
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection122"Compile /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../RGBAUtilities.c8f398fb8cc47b441^e5609eb8cc47b441^---0#0#0#-19%DVTDocumentLocation2@130"file://localhost/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../RGBAUtilities.c0000000000000000^3142"CompileC DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/RGBAUtilities.o linear3DSobelPowerFilter/../RGBAUtilities.c normal x86_64 c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter    setenv LANG en_US.US-ASCII    /Developer/usr/bin/clang -x c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -iquote /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/linear3DSobelPowerFilter-generated-files.hmap -I/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/linear3DSobelPowerFilter-own-target-headers.hmap -I/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/linear3DSobelPowerFilter-all-target-headers.hmap -iquote /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/linear3DSobelPowerFilter-project-headers.hmap -I/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Products/Debug/include -I/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/DerivedSources/x86_64 -I/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/DerivedSources -F/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Products/Debug -MMD -MT dependencies -MF /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/RGBAUtilities.d -c /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/../RGBAUtilities.c -o /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/RGBAUtilities.o
+
+CCompileC DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/main.o /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/main.c normal x86_64 c com.apple.compilers.llvm.clang.1_0.compiler
+s340249784.558990
+e340249784.615216
+r1
+xCompileC
+xDerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/main.o
+x/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/main.c
+xnormal
+xx86_64
+xc
+xcom.apple.compilers.llvm.clang.1_0.compiler
+o/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/main.c:113:5: warning: no previous prototype for function 'DFT' [-Wmissing-prototypes,3]
+o int DFT(int dir,int m,float *x1,float *y1)
+o     ^
+o/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/main.c:160:5: warning: no previous prototype for function 'ClosestPower2' [-Wmissing-prototypes,3]
+o int ClosestPower2(int x){
+o     ^
+o2 warnings generated.
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection110"Compile /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/main.ce7348fb8cc47b441^137e9db8cc47b441^-487"/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/main.c:113:5: warning: no previous prototype for function 'DFT' [-Wmissing-prototypes,3] int DFT(int dir,int m,float *x1,float *y1)     ^/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/main.c:160:5: warning: no previous prototype for function 'ClosestPower2' [-Wmissing-prototypes,3] int ClosestPower2(int x){     ^2 warnings generated.2(21%IDEActivityLogMessage2@40"No previous prototype for function 'DFT'-340249784#0#185#-1#-23%DVTTextDocumentLocation3@118"file://localhost/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/main.c0000000000000000^112#4#112#4#18446744073709551615#0#14"Semantic Issue--2@50"No previous prototype for function 'ClosestPower2'-340249784#236#195#-1#-3@118"file://localhost/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/main.c0000000000000000^159#4#159#4#18446744073709551615#0#14"Semantic Issue--0#0#0#-19%DVTDocumentLocation4@118"file://localhost/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/main.c0000000000000000^3091"CompileC DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/main.o linear3DSobelPowerFilter/main.c normal x86_64 c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter    setenv LANG en_US.US-ASCII    /Developer/usr/bin/clang -x c -arch x86_64 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -Wno-trigraphs -fpascal-strings -O0 -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wshorten-64-to-32 -DDEBUG=1 -isysroot /Developer/SDKs/MacOSX10.7.sdk -fasm-blocks -mmacosx-version-min=10.7 -gdwarf-2 -iquote /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/linear3DSobelPowerFilter-generated-files.hmap -I/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/linear3DSobelPowerFilter-own-target-headers.hmap -I/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/linear3DSobelPowerFilter-all-target-headers.hmap -iquote /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/linear3DSobelPowerFilter-project-headers.hmap -I/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Products/Debug/include -I/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/DerivedSources/x86_64 -I/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/DerivedSources -F/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Products/Debug -MMD -MT dependencies -MF /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/main.d -c /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/linear3DSobelPowerFilter/main.c -o /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/main.o
+
+CLd /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Products/Debug/linear3DSobelPowerFilter normal x86_64
+s340249784.635082
+e340249784.652905
+r1
+xLd
+x/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Products/Debug/linear3DSobelPowerFilter
+xnormal
+xx86_64
+lSLF03#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection158"Link /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Products/Debug/linear3DSobelPowerFilter16a7a2b8cc47b441^4a07afb8cc47b441^---0#0#0#--1031"Ld DerivedData/linear3DSobelPowerFilter/Build/Products/Debug/linear3DSobelPowerFilter normal x86_64    cd /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter    setenv MACOSX_DEPLOYMENT_TARGET 10.7    /Developer/usr/bin/clang -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.7.sdk -L/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Products/Debug -F/Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Products/Debug -filelist /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Intermediates/linear3DSobelPowerFilter.build/Debug/linear3DSobelPowerFilter.build/Objects-normal/x86_64/linear3DSobelPowerFilter.LinkFileList -mmacosx-version-min=10.7 -framework libpng -o /Users/beau/Documents/FourthYear/miscProjects/linear3DSobelPowerFilter/DerivedData/linear3DSobelPowerFilter/Build/Products/Debug/linear3DSobelPowerFilter
+
